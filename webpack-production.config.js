@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|woff|eot)$/,
-        use: 'file-loader?name=fonts/[name].[ext]&outputPath=style/&publicPath=./style/fonts'
+        use: 'file-loader?name=fonts/[name].[ext]&outputPath=style/&publicPath=./'
       }
     ]
   },//end module
@@ -60,7 +60,7 @@ module.exports = {
       // favicon: 'path/to/favicon.png'
     }),
     new ExtractTextPlugin({
-      filename:'style/app.css',
+      filename:'app.css',
       disable:false,
       allChunks:true
     }),
