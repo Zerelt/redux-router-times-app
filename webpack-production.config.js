@@ -60,7 +60,7 @@ module.exports = {
       // favicon: 'path/to/favicon.png'
     }),
     new ExtractTextPlugin({
-      filename:'app.css',
+      filename:'style/app.css',
       disable:false,
       allChunks:true
     }),
