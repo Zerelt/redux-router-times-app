@@ -42,7 +42,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|woff|eot)$/,
-        use: 'file-loader?name=fonts/[name].[ext]&outputPath=style/'
+        use: 'file-loader?name=fonts/[name].[ext]&outputPath=style/&publicPath=./style/fonts'
       }
     ]
   },//end module
