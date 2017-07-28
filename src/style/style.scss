@@ -1,0 +1,648 @@
+@font-face {
+  font-family: 'Krb';
+  src:url('./fonts/krb-light-webfont.ttf') format('truetype');
+  src:url('./fonts/krb-light-webfont.eot') format('eot');
+  src:url('./fonts/krb-light-webfont.woff') format('woff');
+}
+
+//Nav
+$c-nav-1:rgba(0,0,0,0.45);      // box-shadow
+$c-nav-2:black;                 // <a> color
+
+
+//Stopwatch
+$c-sw-1:magenta;                // buttons
+$c-sw-2:magenta - 20;           // stopwatch-Btns > button on Active
+$c-sw-3:rgba(0,0,0,0.328);      // buttons box-shadow
+$c-sw-4:rgba(0,0,0,0.428);      // buttons active box-shadow
+$c-sw-5:rgb(33, 181, 178);      // lap times bg; lap times <li> with -30 on hover
+$c-sw-6:rgb(33, 181, 178) - 30; // lap times <li> with -30 on hover
+
+
+//Time
+$c-tm-1:#EFF6FA;                 // time bg
+$c-tm-2:#848E94 - 52;            // time color
+$c-tm-3:#2F3539;                 // other-times bg
+$c-tm-4:#E0E0E2;                 // other-times color
+$c-tm-5:rgba(0,0,0,0.2);         // other-times>li>span box-shadow  (delete button)
+$c-tm-6:rgba(0,0,0,0.3);         // other-times>li>span box-shadow on hover (delete button)
+$c-tm-7:#656C70;                 // other-times>li (even)
+$c-tm-8:rgba(255,255,255,0.35);  // other-times-list > li border-color
+$c-tm-9:#FF3F00 + 25;            // other-times-list > li bg on hover
+$c-tm-10:#202628 + 10;           // other-times-list > li color on Focus
+$c-tm-11:#202628;                // add-Other-Time bg
+
+
+//Countdown
+$c-cd-1:#FFB900;                 // countdown bg
+$c-cd-2:#FFB900 + 6;             // countdown-btns > button bg on Active
+$c-cd-3:rgba(0,0,0,0.228);       // countdown-btns > button box-shadow on Active
+
+
+//Other & re-used
+$c-other-1:rgba(0,0,0,0.25);      // app box-shadow
+$c-other-2:rgba(0,0,0,0);         // webkit-tap-highlight-color
+$c-other-3:ivory;                 // stopwatch bg;
+                                  // stopwatch buttons color; stopwatch lap times color;
+                                  // other-times > li > span color
+                                  // other-times > li > span bg color on Hover
+                                  // other-times > li > span border color on <li>(parent) Hover
+                                  // other-times-list color
+                                  // other-times-list > li bg on Focus
+                                  // countdown-display > span color
+                                  // countdown-btns > button color
+                                  // countdown-btns > button border color
+
+$c-other-4:#FF3F00;               // other-times>li>span bg  (delete button)
+                                  // other-times>li>span color on Hover (delete button)
+                                  // other-times>li on Hover
+                                  // other-times-list bg
+
+
+*{
+  margin:0;
+  padding:0;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
+  font-family: 'Krb';
+  font-size:16px;
+}
+
+body,html{
+  height:100%;
+  width:100%;
+  min-height:100vh !important;
+  min-width:100% !important;
+  position: relative;
+}
+
+#app{
+  position:absolute;
+  min-height: 350px; //for simplicity
+  height:650px;width:650px; //for IE
+  max-height:650px;
+  max-width:500px;
+  top:0;bottom:0;right:0;left:0;
+  margin:auto;
+  overflow: hidden;
+  -webkit-box-shadow:0px 1px 4px 2px $c-other-1;
+          box-shadow:0px 1px 4px 2px $c-other-1;
+  @media(max-width:767px){
+    height:100%;
+    width:100%;
+    max-height:none;
+    max-width: none;
+    margin:0;
+    position:relative;
+  }
+}
+
+.root-Div{
+    height:100%;
+    width:100%;
+    position:relative;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+.nav {
+  position: relative;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  height:45px;
+  -webkit-box-align:center;
+      -ms-flex-align:center;
+          align-items:center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-shadow:0px 1px 2px 1px $c-nav-1;
+          box-shadow:0px 1px 2px 1px $c-nav-1;
+  -webkit-transition:background-color 0.24s;
+  transition:background-color 0.24s;
+  z-index:5;
+  a{
+    text-decoration: none;
+    color:$c-nav-2;
+    font-size:18px;
+    -webkit-transition:color 0.24s;
+    transition:color 0.24s;
+  }
+}
+
+
+
+.stopwatch{
+  // height:100% !important; // was overwritting flex:1;
+  width:100% !important;
+  background:$c-other-3;
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+          flex-direction:column;
+  .stopwatch-Display{
+    text-align:center;
+    padding:30px 0;
+    width: 50%;
+    height:auto;
+    margin:0 auto;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-pack:distribute;
+        justify-content:space-around;
+    min-height: 70px;
+    @media(max-height:768px){
+      padding:15px 0 !important;
+    }
+    span{
+      font-size: 70px;
+      text-align:center;
+      width:30%;
+      &:nth-child(even){
+        width:5% !important;
+      }
+      @media(max-height:768px){
+        font-size: 50px;
+      }
+      @media(max-height:480px){
+        font-size: 40px;
+      }
+    }
+  }
+
+  .stopwatch-Btns{
+    width: 50%;
+    margin:0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    @media(max-width:768px){
+      min-height:65px;
+    }
+    @media(max-width:480px){
+      min-height:45px;
+    }
+    button{
+      height:65px;
+      width:65px;
+      border-radius: 50%;
+      background-color:$c-sw-1;
+      color:$c-other-3;
+      cursor:pointer;
+      z-index:2;
+      -webkit-transform:translateY(50%);
+              transform:translateY(50%);
+      -webkit-box-shadow:0px 1px 12px 1px $c-sw-3;
+              box-shadow:0px 1px 12px 1px $c-sw-3;
+      -webkit-tap-highlight-color: $c-other-2;
+      border: none;
+      outline:none;
+      line-height: 100%;
+      @media(max-width:480px){
+        height:45px;
+        width:45px;
+        font-size:12px;
+      }
+      &:active{
+        background-color:$c-sw-2;
+        -webkit-box-shadow:0px 1px 3px 1px $c-sw-4;
+                box-shadow:0px 1px 3px 1px $c-sw-4;
+        -webkit-transition:background-color 0.24s,-webkit-box-shadow;
+        transition:background-color 0.24s,-webkit-box-shadow;
+        transition:box-shadow,background-color 0.24s;
+        transition:box-shadow,background-color 0.24s,-webkit-box-shadow;
+      }
+    }
+  }
+
+  .stopwatch-lap{
+    width:100%;
+    -webkit-box-flex:1;
+        -ms-flex:1;
+            flex:1;
+    padding: 15px 0;
+    background-color:$c-sw-5;
+    li{
+      list-style-type: none;
+      width:100%;
+      height:20px;
+      cursor:pointer;
+      padding:20px 10px;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      .stopwatch-lap-number{
+        width:50%;
+        float:left;
+      }
+      .stopwatch-lap-time{
+        width:50%;
+        float:right;
+        text-align:right;
+        span{
+          display:inline-block;
+          width:25px !important;
+          text-align:center;
+          &:nth-child(even){
+            width:1px !important;
+          }
+        }
+      }
+    }
+    li:hover{
+      color:$c-other-3;
+      background-color: $c-sw-6;
+      -webkit-transition:color,background-color 0.24s;
+      transition:color,background-color 0.24s;
+    }
+  }
+}
+
+
+
+
+.time{
+  width:100% !important;
+  background:$c-tm-1;
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+  position:relative; //for the add-other-time btn
+  display:flex;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+          flex-direction:column;
+  overflow: hidden;
+  color:$c-tm-2;
+  .local-time{
+    height:150px;
+    font-size:2.7em;//50px
+    display:flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    text-align: center;
+    .local-time-top, .local-time-bottom {
+      width:100%;
+      height:50%;
+      font-size:2.7rem;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-pack:end;
+          -ms-flex-pack:end;
+              justify-content:flex-end;
+      div{
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack:center;
+            -ms-flex-pack:center;
+                justify-content:center;
+        span{
+          width:50px;
+          font-size: 2.7rem;
+          &:nth-child(even){
+            display:-webkit-box;
+            display:-ms-flexbox;
+            display:flex;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+            width:6px;
+          }
+        }
+      }
+    }
+    .local-time-bottom{
+      -webkit-box-pack: start;
+          -ms-flex-pack: start;
+              justify-content: flex-start;
+    }
+  }
+
+  .other-times{
+    -webkit-box-flex:1;
+        -ms-flex:1;
+            flex:1;
+    background-color: $c-tm-3;
+    padding-bottom:40px;
+    color:$c-tm-4;
+    li{
+      position:relative;
+      padding:15px 0 15px 25px ;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-align:start;
+          -ms-flex-align:start;
+              align-items:flex-start;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-transition:background-color 0.24s;
+      transition:background-color 0.24s;
+      span{
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        height:40%;
+        position:absolute;
+        top:0;bottom:0;right:25px;
+        margin:auto;
+        padding:3px;
+        border-radius: 5px;
+        font-weight: 600;
+        opacity:0.8;
+        color:$c-other-3;
+        background-color:$c-other-4;
+        -webkit-box-shadow: 0 1px 2px 1px $c-tm-5;
+                box-shadow: 0 1px 2px 1px $c-tm-5;
+        -webkit-tap-highlight-color: $c-other-2;
+        -webkit-transition:color,background-color,opacity 0.24s,-webkit-box-shadow;
+        transition:color,background-color,opacity 0.24s,-webkit-box-shadow;
+        transition:box-shadow,color,background-color,opacity 0.24s;
+        transition:box-shadow,color,background-color,opacity 0.24s,-webkit-box-shadow;
+        cursor:pointer;
+        &:hover{
+          -webkit-box-shadow: 0 0 1px $c-tm-6;
+                  box-shadow: 0 0 1px $c-tm-6;
+          color:$c-other-4;
+          background-color: $c-other-3;
+          opacity:1;
+        }
+      }
+    }
+    li:nth-of-type(even) {
+      background-color:$c-tm-7;
+    }
+    li:hover{
+      background:$c-other-4;
+    }
+    li:hover span{
+      border:1px solid $c-other-3;
+    }
+  }
+
+  .other-times-list{
+    position:absolute;
+    bottom:0; //!!!
+    width:100%;
+    height:100%;
+    padding-bottom: 40px;
+    color:$c-other-3;
+    background-color:$c-other-4;
+    -webkit-transition:-webkit-transform 0.4s;
+    transition:-webkit-transform 0.4s;
+    transition:transform 0.4s;
+    transition:transform 0.4s, -webkit-transform 0.4s;
+    li{
+      list-style-type: none;
+      padding: 15px 30px;
+      border-bottom:1px solid $c-tm-8;
+      -webkit-transition:background-color 0.25s;
+      transition:background-color 0.25s;
+      cursor:pointer;
+      outline: none;
+      &:hover{
+        background-color:$c-tm-9;
+      }
+      &:focus{
+        background-color:$c-other-3;
+        color:$c-tm-10;
+        -webkit-transition:color,background-color 0.25s;
+        transition:color,background-color 0.25s;
+      }
+    }
+  }
+
+  .add-Other-Time{
+    position:absolute;
+    height:40px;
+    width:100%;
+    background-color:$c-tm-11;
+    bottom:0;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    span{
+      -webkit-transition:-webkit-transform 0.4s;
+      transition:-webkit-transform 0.4s;
+      transition:transform 0.4s;
+      transition:transform 0.4s, -webkit-transform 0.4s;
+      width:40px;
+      height:40px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      svg{
+        height:100%;
+        width:100%;
+      }
+    }
+  }
+}
+
+
+
+
+.countdown{
+  position:relative;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+  background:$c-cd-1;
+  .countdown-display{
+    width:300px;
+    height:250px;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    span{
+      font-size:7rem;
+      color:$c-other-3;
+      width:118px;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+    }
+    .separator{
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      width:36px;
+      padding-bottom:18px;
+    }
+  }
+  .countdown-btns{
+    width:300px;
+    height:250px;
+    position:absolute;
+    top:0;bottom:0;right:0;left:0;margin:auto;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-align:start;
+        -ms-flex-align:start;
+            align-items:flex-start;
+    -ms-flex-pack:distribute;
+        justify-content:space-around;
+    button{
+      color:$c-other-3;
+      font-size:3rem;
+      background-color:transparent;
+      border:none;
+      height:60px;
+      width:60px;
+      line-height:100%;
+      border-radius:50%;
+      outline:none ;
+      cursor:pointer;
+      -webkit-tap-highlight-color: $c-other-2;
+      border:1px solid $c-other-3;
+      &:active{
+        background-color:$c-cd-2;
+        -webkit-box-shadow:0px 1px 3px 1px $c-cd-3;
+                box-shadow:0px 1px 3px 1px $c-cd-3;
+        -webkit-transition:background-color,-webkit-box-shadow 0.14s;
+        transition:background-color,-webkit-box-shadow 0.14s;
+        transition:background-color,box-shadow 0.14s;
+        transition:background-color,box-shadow 0.14s,-webkit-box-shadow 0.14s;
+      }
+    }
+    .plusBtn-container, .minusBtn-container{
+      position:absolute;
+      width:100%;
+      left:0;right:0; //for IE11
+      bottom:0;
+      display:-webkit-box;
+      display:-ms-flexbox;
+      display:flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -ms-flex-pack:distribute;
+          justify-content:space-around;
+      button{
+        font-size: 3.5rem;
+      }
+    }
+    .plusBtn-container{
+      bottom:auto;
+      top:0 !important;
+    }
+    .go-reset{
+      z-index:15;
+      font-size: 1.9rem;
+    }
+  }
+}
